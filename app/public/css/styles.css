@@ -1,0 +1,17 @@
+$background: #0b1930;
+
+body {
+    background-color: $background;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .searchbox {
+    max-width: 50%;
+}
+
+}
+

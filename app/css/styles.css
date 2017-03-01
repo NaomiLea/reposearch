@@ -1,0 +1,9 @@
+body {
+  background-color: #0b1930; }
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  form .searchbox {
+    max-width: 50%; }

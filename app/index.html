@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Repo search</title>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <script src="public/js/index.js"></script>
+</head>
+
+<body>
+    <div id="searching"></div>
+    <script type="text/babel">
+
+
+ class SearchBox extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.onKeyUp = this.onKeyUp.bind(this);
+        this.onChange = this.onChange.bind(this);
+    }
+
+    onChange(event) {
+            const matchArray = findMatches(this.value, repositories);
+    const html = matchArray.map(place => {
+        const regex = new RegExp(this.value, "gi");
+        const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+        const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+        return `
+      <li>
+      <span class="name">${cityName}, ${stateName}</span>
+
+      </li>
+      `;
+    }).join('');
+    console.log(matchArray);
+    
+    }
+
+    onKeyUp(event) {
+            const matchArray = findMatches(this.value, repositories);
+    const html = matchArray.map(place => {
+        const regex = new RegExp(this.value, "gi");
+        const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+        const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+        return `
+      <li>
+      <span class="name">${cityName}, ${stateName}</span>
+    
+      </li>
+      `;
+    }).join('');
+    console.log(matchArray);
+    
+    }
+
+    render() {
+        return(
+            <form>
+                <input type="text" className="searchbox" onChange={this.onChange} onKeyUp={this.onKeyUp} />
+            </form>
+        );
+    }
+}
+
+ReactDOM.render(
+    <SearchBox />,
+    document.getElementById("searching")
+);
+    </script>
+</body>
+
+</html>
