@@ -24,20 +24,35 @@
         this.onChange = this.onChange.bind(this);
     }
 
-    onChange(event) {
+  
+
+    render() {
+        return(
+            <form>
+                <input type="text" className="searchbox" onChange={this.onChange} onKeyUp={this.onKeyUp} />
+                  <ul className="suggestions">
+            <li>Filter for a city</li>
+            <li>or a state</li>
+        </ul>
+            </form>
+        );
+    }
+
+      onChange(event) {
             const matchArray = findMatches(this.value, repositories);
     const html = matchArray.map(place => {
         const regex = new RegExp(this.value, "gi");
-        const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
-        const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+        const cityName = place.city.replace(regex, `<span className="hl">${this.value}</span>`);
+        const stateName = place.state.replace(regex, `<span className="hl">${this.value}</span>`);
         return `
       <li>
-      <span class="name">${cityName}, ${stateName}</span>
+      <span className="name">${cityName}, ${stateName}</span>
 
       </li>
       `;
     }).join('');
     console.log(matchArray);
+   
     
     }
 
@@ -45,25 +60,18 @@
             const matchArray = findMatches(this.value, repositories);
     const html = matchArray.map(place => {
         const regex = new RegExp(this.value, "gi");
-        const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
-        const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+        const cityName = place.name.replace(regex, `<span className="hl">${this.value}</span>`);
+       
         return `
       <li>
-      <span class="name">${cityName}, ${stateName}</span>
+      <span class="nameName">${cityName}, </span>
     
       </li>
       `;
     }).join('');
     console.log(matchArray);
+   
     
-    }
-
-    render() {
-        return(
-            <form>
-                <input type="text" className="searchbox" onChange={this.onChange} onKeyUp={this.onKeyUp} />
-            </form>
-        );
     }
 }
 
