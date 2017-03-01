@@ -16,12 +16,13 @@
     <script type="text/babel">
 
 
+
  class SearchBox extends React.Component {
 
     constructor(props) {
         super(props);
         this.onKeyUp = this.onKeyUp.bind(this);
-        this.onChange = this.onChange.bind(this);
+        
     }
 
   
@@ -29,31 +30,13 @@
     render() {
         return(
             <form>
-                <input type="text" className="searchbox" onChange={this.onChange} onKeyUp={this.onKeyUp} />
+                <input type="text" className="searchbox" onKeyUp={this.onKeyUp} ref={(input) => { this.searchBox = input; }}/>
                   <ul className="suggestions">
             <li>Filter for a city</li>
             <li>or a state</li>
         </ul>
             </form>
         );
-    }
-
-      onChange(event) {
-            const matchArray = findMatches(this.value, repositories);
-    const html = matchArray.map(place => {
-        const regex = new RegExp(this.value, "gi");
-        const cityName = place.city.replace(regex, `<span className="hl">${this.value}</span>`);
-        const stateName = place.state.replace(regex, `<span className="hl">${this.value}</span>`);
-        return `
-      <li>
-      <span className="name">${cityName}, ${stateName}</span>
-
-      </li>
-      `;
-    }).join('');
-    console.log(matchArray);
-   
-    
     }
 
     onKeyUp(event) {
@@ -71,9 +54,11 @@
     }).join('');
     console.log(matchArray);
    
-    
+
     }
 }
+
+
 
 ReactDOM.render(
     <SearchBox />,

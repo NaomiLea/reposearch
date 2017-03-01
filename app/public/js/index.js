@@ -1,10 +1,9 @@
 
-const endpoint = 'https://api.github.com/search/repositories?sort=stars&order=desc&q=' + searchTerm;
+
+const endpoint = 'https://api.github.com/search/repositories?sort=stars&order=desc&q=hello'
 const repositories = [];
 
-fetch(endpoint)
-    .then(blob => blob.json())
-    .then(data => repositories.push(...data));
+console.log(endpoint);
 
 function findMatches(wordToMatch, repositories) {
     return repositories.filter(place => {
