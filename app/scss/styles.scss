@@ -1,5 +1,5 @@
 $background: #0b1930;
-
+$textcolor: #ffdd87;
 body {
     background-color: $background;
 }
@@ -8,10 +8,57 @@ form {
     display: flex;
     align-items: center;
     justify-content: center;
-
     .searchbox {
-    max-width: 100%;
+        width: 40vw;
+        height: 10vh;
+        font-size: 36px;
+        font-family: 'Assistant', sans-serif;
+    }
+    button {
+        height: 10vh;
+        width: 10vw;
+        color: $background;
+        background: $textcolor;
+        font-size: 36px;
+        margin-left: 10px;
+        font-family: 'Six Caps', sans-serif;
+    }
 }
 
+.results {
+    @extend form;
+    flex-direction: column;
+    font-family: 'Six Caps', sans-serif;
 }
 
+ul {
+    list-style-type: none;
+    font-family: 'Assistant', sans-serif;
+    @extend form;
+    flex-wrap: wrap;
+    .repository {
+        flex-direction: row;
+        
+        color: $textcolor;
+        border: solid;
+        border-color: $textcolor;
+        border-width: 2px;
+        li {
+            width: 20vw;
+            font-family: 'Assistant', sans-serif;
+        }
+        .repoName {
+        
+        font-weight: bolder;
+        text-decoration: underline;
+        }
+    }
+}
+
+a {
+    text-decoration: none;
+    color: $textcolor;
+    &:hover,
+    &:active,
+    &:visited {}
+}

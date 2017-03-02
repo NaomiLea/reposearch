@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant|Parisienne|Six+Caps" rel="stylesheet">
     
 </head>
 
@@ -22,43 +23,62 @@ class SearchBox extends React.Component {
     constructor(props) {
         super(props);
         this.onClick = this.onClick.bind(this);
-        this.state = { repositories: [] };
+        this.state = { repositories: [],
+        showInfo: false };
+
     }
 
 
     render() {
-        return(
-            <div>
-                <form>
-                <input type="text" className="searchbox"  ref={(input) => { this.searchBox = input; }}/>
-                <button onClick={this.onClick}>Search</button>
-                </form>
-                <h2>Repositories</h2>
-                <ul>
-                { this.state.repositories.map( ( item, index ) => (
-                <div key={ index }>
-                  <a href={item.html_url}>  <li >
-                        { item.name }
-                        
-                    </li>
-                    </a>
-                    <li>
-                    <p>Open issue count </p>:{item.open_issues_count}
-                    </li>
-                    <li>
-                    <p>Number of forks </p>:{item.forks}
-                    </li>
-                    <li>
-                    <p>Language </p>:{item.language}
-                    </li>
-                    
-                    <button>Detailed view</button>
-                </div>
-                )) }
-                </ul>
+    const moreDetail = (item) => ( !this.state.showInfo ? <span /> :
+            <div className="info">                    
+                <li>
+                    <p>Open issue count: {item.open_issues_count} </p>
+                </li>
+                <li>
+                    <p>Number of forks: {item.forks}</p>
+                </li>
+                <li>
+                    <p>Language: {item.language}</p>
+                </li>
             </div>
-            );
+        );
+
+    return (
+        <div>
+            <form>
+            <input type="text" className="searchbox"  ref={(input) => { this.searchBox = input; }}/>
+            <button onClick={this.onClick}>Search</button>
+            </form>
+            <div className="results">
+            <h2>Repositories</h2>
+             <button onClick={this._handleClick.bind(this)}>Detailed view</button>
+             </div>
+            <ul>
+            { this.state.repositories.map( ( item, index ) => (
+            <div className="repository" key={ index }>
+              <a href={item.html_url}>  <li className="repoName">
+                    { item.name }
+
+                </li>
+                </a>
+                {moreDetail(item)}
+
+                
+            </div>
+            )) }
+            </ul>
+
+        </div>
+        );
+}
+
+    _handleClick(){
+    this.setState({
+    showInfo: !this.state.showInfo
+    });
     }
+    
 
     onClick(event) {
 

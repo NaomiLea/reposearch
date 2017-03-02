@@ -1,9 +1,45 @@
 body {
   background-color: #0b1930; }
 
-form {
+form, .results, ul {
   display: flex;
   align-items: center;
   justify-content: center; }
-  form .searchbox {
-    max-width: 50%; }
+  form .searchbox, .results .searchbox, ul .searchbox {
+    width: 40vw;
+    height: 10vh;
+    font-size: 36px;
+    font-family: 'Assistant', sans-serif; }
+  form button, .results button, ul button {
+    height: 10vh;
+    width: 10vw;
+    color: #0b1930;
+    background: #ffdd87;
+    font-size: 36px;
+    margin-left: 10px;
+    font-family: 'Six Caps', sans-serif; }
+
+.results {
+  flex-direction: column;
+  font-family: 'Six Caps', sans-serif; }
+
+ul {
+  list-style-type: none;
+  font-family: 'Assistant', sans-serif;
+  flex-wrap: wrap; }
+  ul .repository {
+    flex-direction: row;
+    color: #ffdd87;
+    border: solid;
+    border-color: #ffdd87;
+    border-width: 2px; }
+    ul .repository li {
+      width: 20vw;
+      font-family: 'Assistant', sans-serif; }
+    ul .repository .repoName {
+      font-weight: bolder;
+      text-decoration: underline; }
+
+a {
+  text-decoration: none;
+  color: #ffdd87; }
