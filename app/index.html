@@ -8,61 +8,72 @@
     <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
-    <script src="public/js/index.js"></script>
+    
 </head>
 
 <body>
     <div id="searching"></div>
     <script type="text/babel">
+let searchTerm;
 
-    let searchTerm;
+class SearchBox extends React.Component {
 
-
-
-
- class SearchBox extends React.Component {
 
     constructor(props) {
         super(props);
-        this.onKeyUp = this.onKeyUp.bind(this);
-       
+        this.onClick = this.onClick.bind(this);
+        this.state = { repositories: [] };
     }
 
-  
+
     render() {
         return(
-            <form>
-                <input type="text" className="searchbox" onKeyUp={this.onKeyUp} ref={(input) => { this.searchBox = input; }}/>
- 
-            </form>
-        );
+            <div>
+                <form>
+                <input type="text" className="searchbox"  ref={(input) => { this.searchBox = input; }}/>
+                <button onClick={this.onClick}>Search</button>
+                </form>
+                <h2>Repositories</h2>
+                <ul>
+                { this.state.repositories.map( ( item, index ) => (
+                <div key={ index }>
+                  <a href={item.html_url}>  <li >
+                        { item.name }
+                        
+                    </li>
+                    </a>
+                    <li>
+                    <p>Open issue count </p>:{item.open_issues_count}
+                    </li>
+                    <li>
+                    <p>Number of forks </p>:{item.forks}
+                    </li>
+                    <li>
+                    <p>Language </p>:{item.language}
+                    </li>
+                    
+                    <button>Detailed view</button>
+                </div>
+                )) }
+                </ul>
+            </div>
+            );
     }
 
-    onKeyUp(event) {
-            const matchArray = findMatches(this.value, repositories);
-    const html = matchArray.map(place => {
-        const regex = new RegExp(this.value, "gi");
-        const cityName = place.name.replace(regex, `<span className="hl">${this.value}</span>`);
-       
-        return `
-      <li>
-      <span class="nameName">${cityName}, </span>
-    
-      </li>
-      `;
-    }).join('');
-    console.log(matchArray);
-   searchTerm = this.searchBox.value;
-   let endpoint = 'https://api.github.com/search/repositories?sort=stars&order=desc&q=' + searchTerm;
-   console.log(searchTerm);
+    onClick(event) {
+
+        searchTerm = this.searchBox.value;
+        let endpoint = 'https://api.github.com/search/repositories?sort=stars&order=desc&q=' + searchTerm;
+        console.log(searchTerm);
         fetch(endpoint)
-    .then(blob => blob.json())
-    .then(data => repositories.push(...data));
-    
-console.log(endpoint);
+            .then(blob => blob.json())
+            .then(response => {
+                this.setState({ repositories: response.items });
+            });
+        event.preventDefault();
+
     }
 }
-
 
 
 ReactDOM.render(
